@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ZN-Fm-YXJ">
+                                <rect key="frame" x="283" y="569" width="34" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="UFe-5b-wUS"/>
+                                    <constraint firstAttribute="height" constant="23" id="kAB-u8-ysw"/>
+                                </constraints>
+                                <state key="normal" title="Crop"/>
+                                <connections>
+                                    <action selector="crop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qT8-aK-CgC"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cropexample.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="hMi-vI-DOb" userLabel="Cropped">
+                                <rect key="frame" x="0.0" y="310" width="600" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hMi-vI-DOb" secondAttribute="height" multiplier="12:5" id="iAo-m6-V9f"/>
+                                </constraints>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cropexample.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="msV-MA-XQr" userLabel="Original" customClass="MMSCropImageView">
+                                <rect key="frame" x="128" y="30" width="344" height="258"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="msV-MA-XQr" secondAttribute="height" multiplier="4:3" id="kMQ-Pk-b4l"/>
+                                </constraints>
+                            </imageView>
+                            <view hidden="YES" alpha="0.65000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-40-aU5">
+                                <rect key="frame" x="-1" y="-1" width="0.0" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1ZN-Fm-YXJ" firstAttribute="top" secondItem="hMi-vI-DOb" secondAttribute="bottom" priority="900" constant="9" id="2Bl-2I-Ad7"/>
+                            <constraint firstItem="msV-MA-XQr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="30" id="2WC-OG-pSW"/>
+                            <constraint firstItem="hMi-vI-DOb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4HS-tY-Wto"/>
+                            <constraint firstItem="hMi-vI-DOb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="msV-MA-XQr" secondAttribute="bottom" constant="22" id="BjS-3g-3XT"/>
+                            <constraint firstItem="msV-MA-XQr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XpB-s1-d08"/>
+                            <constraint firstItem="msV-MA-XQr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kHY-5h-3aC"/>
+                            <constraint firstItem="1ZN-Fm-YXJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l6B-G4-3el"/>
+                            <constraint firstAttribute="trailing" secondItem="hMi-vI-DOb" secondAttribute="trailing" id="lNo-4h-xts"/>
+                            <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="msV-MA-XQr" secondAttribute="trailing" priority="900" constant="108" id="pGl-Lq-s5X"/>
+                            <constraint firstItem="msV-MA-XQr" firstAttribute="leading" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" priority="900" constant="108" id="qZA-qd-NO8"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1ZN-Fm-YXJ" secondAttribute="bottom" constant="8" id="tGJ-2Y-kFC"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="msV-MA-XQr" secondAttribute="trailing" id="uhf-Ra-NmP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cropView" destination="Ow0-40-aU5" id="qZN-UG-L5A"/>
+                        <outlet property="croppedView" destination="hMi-vI-DOb" id="3d4-69-vCN"/>
+                        <outlet property="imageView" destination="msV-MA-XQr" id="GE6-9c-421"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="340" y="359"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cropexample.jpg" width="4032" height="3024"/>
+    </resources>
+</document>
