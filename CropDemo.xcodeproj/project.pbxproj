@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C4D85031C42FD6900FAFBB2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D85021C42FD6900FAFBB2 /* README.md */; };
 		2C76F1F41C42D2A1000D86C5 /* DragCropRectRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76F1EF1C42D2A1000D86C5 /* DragCropRectRecognizer.m */; };
 		2C76F1F51C42D2A1000D86C5 /* MMSCropImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76F1F11C42D2A1000D86C5 /* MMSCropImageView.m */; };
 		2C76F1F61C42D2A1000D86C5 /* UIImage+Cropping.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76F1F31C42D2A1000D86C5 /* UIImage+Cropping.m */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C4D85021C42FD6900FAFBB2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2C76F1EE1C42D2A1000D86C5 /* DragCropRectRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragCropRectRecognizer.h; sourceTree = "<group>"; };
 		2C76F1EF1C42D2A1000D86C5 /* DragCropRectRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragCropRectRecognizer.m; sourceTree = "<group>"; };
 		2C76F1F01C42D2A1000D86C5 /* MMSCropImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSCropImageView.h; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		2CD997091C0DD83B0080EE53 = {
 			isa = PBXGroup;
 			children = (
+				2C4D85021C42FD6900FAFBB2 /* README.md */,
 				2C76F1ED1C42CBDD000D86C5 /* MMSCropImageView */,
 				2CD997141C0DD83B0080EE53 /* CropDemo */,
 				2CD997131C0DD83B0080EE53 /* Products */,
@@ -179,6 +182,7 @@
 				2C76F1F51C42D2A1000D86C5 /* MMSCropImageView.m in Sources */,
 				2CD9971D1C0DD83B0080EE53 /* ViewController.m in Sources */,
 				2CD9971A1C0DD83B0080EE53 /* AppDelegate.m in Sources */,
+				2C4D85031C42FD6900FAFBB2 /* README.md in Sources */,
 				2C76F1F61C42D2A1000D86C5 /* UIImage+Cropping.m in Sources */,
 				2CD997171C0DD83B0080EE53 /* main.m in Sources */,
 				2C76F1F41C42D2A1000D86C5 /* DragCropRectRecognizer.m in Sources */,
