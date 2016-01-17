@@ -8,7 +8,7 @@ This class provides the feature to draw a rectangle over an image by dragging a 
 A simple image cropper.
 
 ## Installation
-*MMSCropImageView requires iOS 9.1 or later.*
+*MMSCropImageView requires iOS 9.0 or later.*
 
 ## Basic Usage
 
