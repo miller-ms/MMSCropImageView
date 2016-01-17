@@ -37,6 +37,10 @@ self.croppedView.image = croppedImage;
 
 Build and run the `CropDemo` project in Xcode to see `MMSCropImageView` in action.
 
+## Article
+
+An article describing the implementation of the class:  [A View Class for Cropping Images](http://www.codeproject.com/Articles/1066191/A-View-Class-for-Cropping-Images).
+
 ## Contact
 
 William Miller
