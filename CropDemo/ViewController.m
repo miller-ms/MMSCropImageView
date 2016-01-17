@@ -9,26 +9,12 @@
 #import "ViewController.h"
 #import "UIImage+Cropping.h"
 
-@interface ViewController () <UIGestureRecognizerDelegate>
-
-{
-    
-    CGPoint dragOrigin;
-
-}
-
-@end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    
-    dragOrigin = CGPointZero;
-    
-    [self.cropView removeFromSuperview];
-    
-//    [self.imageView addSubview:self.cropView];
     
 }
 

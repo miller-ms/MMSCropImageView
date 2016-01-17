@@ -26,10 +26,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DragCropRectRecognizer.h"
 #import "MMSCropImageView.h"
 
-@interface ViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *cropView;
 @property (weak, nonatomic) IBOutlet MMSCropImageView *imageView;
