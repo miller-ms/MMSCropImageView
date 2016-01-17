@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/miller-ms/MMSCropImageView.git", :tag => s.version.to_s }
   s.source_files = "MMSCropImageView/*.{h,m}"
-  s.frameworks   = "UIKit", "CoreGraphis"
+  s.frameworks   = "UIKit", "CoreGraphics"
 end
