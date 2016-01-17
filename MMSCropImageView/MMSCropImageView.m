@@ -94,6 +94,9 @@
     
     dragOrigin = CGPointZero;
     
+    // Enable user interaction
+    self.userInteractionEnabled = YES;
+    
     // initialize the view with zero size and positioned outside the visible region of the  imageview.
     cropView = [[UIView alloc] initWithFrame:CGRectMake(-1.0, -1.0, 0.0, 0.0)];
     
