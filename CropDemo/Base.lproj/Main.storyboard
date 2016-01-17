@@ -36,18 +36,13 @@
                                     <constraint firstAttribute="width" secondItem="hMi-vI-DOb" secondAttribute="height" multiplier="12:5" id="iAo-m6-V9f"/>
                                 </constraints>
                             </imageView>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cropexample.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="msV-MA-XQr" userLabel="Original" customClass="MMSCropImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cropexample.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="msV-MA-XQr" userLabel="Original" customClass="MMSCropImageView">
                                 <rect key="frame" x="128" y="30" width="344" height="258"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="msV-MA-XQr" secondAttribute="height" multiplier="4:3" id="kMQ-Pk-b4l"/>
                                 </constraints>
                             </imageView>
-                            <view hidden="YES" alpha="0.65000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-40-aU5">
-                                <rect key="frame" x="-1" y="-1" width="0.0" height="0.0"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -66,7 +61,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cropView" destination="Ow0-40-aU5" id="qZN-UG-L5A"/>
                         <outlet property="croppedView" destination="hMi-vI-DOb" id="3d4-69-vCN"/>
                         <outlet property="imageView" destination="msV-MA-XQr" id="GE6-9c-421"/>
                     </connections>
