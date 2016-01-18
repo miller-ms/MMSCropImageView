@@ -80,16 +80,10 @@
     
     /* round the size of the underlying CGImage and the input size.
      */
-    
-//    CGSize gImageSize = CGSizeMake(CGImageGetWidth(self.CGImage), CGImageGetHeight(self.CGImage));
-    
     scaleSize = CGSizeMake(round(scaleSize.width), round(scaleSize.height));
     
     /* if the underlying CGImage is oriented differently than the UIImage then swap the width and height of the scale size. This method assumes the size passed is a request on the UIImage's orientation.
      */
-    
-//    if (gImageSize.height == self.size.width && gImageSize.width == self.size.height) {
-    
     if (self.imageOrientation == UIImageOrientationLeft || self.imageOrientation == UIImageOrientationRight) {
             
         scaleSize = CGSizeMake(round(scaleSize.height), round(scaleSize.width));
@@ -117,53 +111,53 @@
     
 }
 
-/* translateCropRect:inBounds: translates the origin of the crop rectangle to match the orientation of the underlying CGImage.
+/* transposeCropRect:inBounds: transposes the origin of the crop rectangle to match the orientation of the underlying CGImage. For some orientations, the height and width are swaped.
  */
--(CGRect)translateCropRect:(CGRect)cropRect inBounds:(CGSize)boundSize {
+-(CGRect)transposeCropRect:(CGRect)cropRect inBounds:(CGSize)boundSize {
     
-    CGRect transformedRect = cropRect;
+    CGRect transposedRect = cropRect;
     
     switch (self.imageOrientation) {
         case UIImageOrientationLeft:
-            transformedRect.origin.x = boundSize.height - (cropRect.size.height + cropRect.origin.y);
-            transformedRect.origin.y = cropRect.origin.x;
-            transformedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);
+            transposedRect.origin.x = boundSize.height - (cropRect.size.height + cropRect.origin.y);
+            transposedRect.origin.y = cropRect.origin.x;
+            transposedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);
             break;
             
         case UIImageOrientationRight:
-            transformedRect.origin.x = cropRect.origin.y;
-            transformedRect.origin.y = boundSize.width - (cropRect.size.width + cropRect.origin.x);
-            transformedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);
+            transposedRect.origin.x = cropRect.origin.y;
+            transposedRect.origin.y = boundSize.width - (cropRect.size.width + cropRect.origin.x);
+            transposedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);
             break;
             
         case UIImageOrientationDown:
-            transformedRect.origin.x = boundSize.width - (cropRect.size.width + cropRect.origin.x);
-            transformedRect.origin.y = boundSize.height - (cropRect.size.height + cropRect.origin.y);
+            transposedRect.origin.x = boundSize.width - (cropRect.size.width + cropRect.origin.x);
+            transposedRect.origin.y = boundSize.height - (cropRect.size.height + cropRect.origin.y);
             break;
 
         case UIImageOrientationUp:
             break;
 
         case UIImageOrientationDownMirrored:
-            transformedRect.origin.x = cropRect.origin.x;
-            transformedRect.origin.y = boundSize.height - (cropRect.size.height + cropRect.origin.y);
+            transposedRect.origin.x = cropRect.origin.x;
+            transposedRect.origin.y = boundSize.height - (cropRect.size.height + cropRect.origin.y);
             break;
 
         case UIImageOrientationLeftMirrored:
-            transformedRect.origin.x = cropRect.origin.y;
-            transformedRect.origin.y = cropRect.origin.x;
-            transformedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);
+            transposedRect.origin.x = cropRect.origin.y;
+            transposedRect.origin.y = cropRect.origin.x;
+            transposedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);
             break;
             
         case UIImageOrientationRightMirrored:
-            transformedRect.origin.x = boundSize.height - (cropRect.size.height + cropRect.origin.y);
-            transformedRect.origin.y = boundSize.width - (cropRect.size.width + cropRect.origin.x);
-            transformedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);            
+            transposedRect.origin.x = boundSize.height - (cropRect.size.height + cropRect.origin.y);
+            transposedRect.origin.y = boundSize.width - (cropRect.size.width + cropRect.origin.x);
+            transposedRect.size = CGSizeMake(cropRect.size.height, cropRect.size.width);            
             break;
             
         case UIImageOrientationUpMirrored:
-            transformedRect.origin.x = boundSize.width - (cropRect.size.width + cropRect.origin.x);
-            transformedRect.origin.y = cropRect.origin.y;
+            transposedRect.origin.x = boundSize.width - (cropRect.size.width + cropRect.origin.x);
+            transposedRect.origin.y = cropRect.origin.y;
             break;
             
             
@@ -171,7 +165,7 @@
             break;
     }
     
-    return transformedRect;
+    return transposedRect;
 }
 /* cropRectangle:inFrame returns a new UIImage cut from the cropArea of the underlying image.  It first scales the underlying image to the scale size before cutting the crop area from it. The returned CGImage is in the dimensions of the cropArea and it is oriented the same as the underlying CGImage as is the imageOrientation.
  */
@@ -185,7 +179,7 @@
     
     /* crop the resized image to the crop rectangel.
      */
-    CGImageRef cropRef = CGImageCreateWithImageInRect(img.CGImage, [self translateCropRect:cropRect inBounds:frameSize]);
+    CGImageRef cropRef = CGImageCreateWithImageInRect(img.CGImage, [self transposeCropRect:cropRect inBounds:frameSize]);
     
     UIImage* croppedImg = [UIImage imageWithCGImage:cropRef scale:1.0 orientation:self.imageOrientation];
     
