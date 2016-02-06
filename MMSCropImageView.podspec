@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "MMSCropImageView"
-  s.version      = "0.4.0"
+  s.version      = "0.4.1"
   s.summary      = "MMSCropImageView is an objective-c subclass of the UIImageView to give features to crop the image."
   s.description  = <<-DESC
                    MMSCropImageView gives the basic feature of drawing and positioning a crop rectangle over an image and
