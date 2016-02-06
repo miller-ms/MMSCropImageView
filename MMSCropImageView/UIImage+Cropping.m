@@ -26,6 +26,7 @@
 
 
 #import "UIImage+Cropping.h"
+@import CoreFoundation;
 
 
 // static inline double radians (double degrees) {return degrees * M_PI/180;}
@@ -41,29 +42,63 @@
     
     CGSize scaleSize = CGSizeZero;
     
-    if (fromSize.width >= toSize.width) {  // give priority to width if it is larger than the destination width
+    // if the wideth is the shorter dimension
+    if (toSize.width < toSize.height) {
         
-        scaleSize.width = roundf(toSize.width);
-        
-        scaleSize.height = roundf(scaleSize.width * fromSize.height / fromSize.width);
-        
-    } else if (fromSize.height >= toSize.height) {  // then give priority to height if it is larger than destination height
-        
-        scaleSize.height = roundf(toSize.height);
-        
-        scaleSize.width = round(scaleSize.height * fromSize.width / fromSize.height);
-        
-    } else {  // otherwise the source size is smaller in all directions.  Scale on width
-        
-        scaleSize.width = roundf(toSize.width);
-        
-        scaleSize.height = roundf(scaleSize.width * fromSize.height / fromSize.width);
-        
-        if (scaleSize.height > toSize.height) { // but if the new height is larger than the destination then scale height
+        if (fromSize.width >= toSize.width) {  // give priority to width if it is larger than the destination width
+            
+            scaleSize.width = roundf(toSize.width);
+            
+            scaleSize.height = roundf(scaleSize.width * fromSize.height / fromSize.width);
+            
+        } else if (fromSize.height >= toSize.height) {  // then give priority to height if it is larger than destination height
             
             scaleSize.height = roundf(toSize.height);
             
-            scaleSize.width = roundf(scaleSize.height * fromSize.width / fromSize.height);
+            scaleSize.width = round(scaleSize.height * fromSize.width / fromSize.height);
+            
+        } else {  // otherwise the source size is smaller in all directions.  Scale on width
+            
+            scaleSize.width = roundf(toSize.width);
+            
+            scaleSize.height = roundf(scaleSize.width * fromSize.height / fromSize.width);
+            
+            if (scaleSize.height > toSize.height) { // but if the new height is larger than the destination then scale height
+                
+                scaleSize.height = roundf(toSize.height);
+                
+                scaleSize.width = roundf(scaleSize.height * fromSize.width / fromSize.height);
+            }
+            
+        }
+    } else {  // else height is the shorter dimension
+        
+        if (fromSize.height >= toSize.height) {  // then give priority to height if it is larger than destination height
+            
+            scaleSize.height = roundf(toSize.height);
+            
+            scaleSize.width = round(scaleSize.height * fromSize.width / fromSize.height);
+            
+        } else if (fromSize.width >= toSize.width) {  // give priority to width if it is larger than the destination width
+            
+            scaleSize.width = roundf(toSize.width);
+            
+            scaleSize.height = roundf(scaleSize.width * fromSize.height / fromSize.width);
+            
+            
+        } else {  // otherwise the source size is smaller in all directions.  Scale on width
+            
+            scaleSize.width = roundf(toSize.width);
+            
+            scaleSize.height = roundf(scaleSize.width * fromSize.height / fromSize.width);
+            
+            if (scaleSize.height > toSize.height) { // but if the new height is larger than the destination then scale height
+                
+                scaleSize.height = roundf(toSize.height);
+                
+                scaleSize.width = roundf(scaleSize.height * fromSize.width / fromSize.height);
+            }
+            
         }
         
     }
@@ -91,33 +126,58 @@
     
     /* Create a bitmap context in the dimensions of the scale size and draw the underlying CGImage into the context.
      */
-    CGContextRef context = CGBitmapContextCreate(nil, scaleSize.width, scaleSize.height, CGImageGetBitsPerComponent(self.CGImage), CGImageGetBytesPerRow(self.CGImage)/CGImageGetWidth(self.CGImage)*scaleSize.width, CGImageGetColorSpace(self.CGImage), CGImageGetBitmapInfo(self.CGImage));
+    CGContextRef context = CGBitmapContextCreate(nil, scaleSize.width, scaleSize.height, CGImageGetBitsPerComponent(self.CGImage), 0, CGImageGetColorSpace(self.CGImage), CGImageGetBitmapInfo(self.CGImage));
     
-    CGContextDrawImage(context, CGRectMake(0, 0, scaleSize.width, scaleSize.height), self.CGImage);
     
-    /* realize the CGImage from the context.
-     */
-    CGImageRef imgRef = CGBitmapContextCreateImage(context);
+    UIImage* returnImg;
     
-    CGContextRelease(context);  // context is no longer needed so release it.
+    if (context != NULL) {
+        
+        CGContextDrawImage(context, CGRectMake(0, 0, scaleSize.width, scaleSize.height), self.CGImage);
+        
+        /* realize the CGImage from the context.
+         */
+        CGImageRef imgRef = CGBitmapContextCreateImage(context);
+        
+        CGContextRelease(context);  // context is no longer needed so release it.
+        
+        /* realize the CGImage into a UIImage.
+         */
+        returnImg = [UIImage imageWithCGImage:imgRef];
+        
+        CGImageRelease(imgRef);  // release the CGImage as it is no longer needed.
+
+    } else {
+        
+        /* context creation failed, so return a copy of the image, and log the error.
+         */
+        NSLog (@"NULL Bitmap Context in scaleBitmapToSize");
+        
+        returnImg = [UIImage imageWithCGImage:self.CGImage];
+    }
     
-    /* realize the CGImage into a UIImage.
-     */
-    UIImage* returnImg = [UIImage imageWithCGImage:imgRef];
-    
-    CGImageRelease(imgRef);  // release the CGImage as it is no longer needed.
 
     return returnImg;
     
 }
 
-/* transposeCropRect:inBounds: transposes the origin of the crop rectangle to match the orientation of the underlying CGImage. For some orientations, the height and width are swaped.
+/* transposeCropRect:fromBound:toBound transposes the origin of the crop rectangle to match the orientation of the underlying CGImage. For some orientations, the height and width are swaped.
+*/
+-(CGRect)transposeCropRect:(CGRect)cropRect fromBound:(CGRect)fromRect toBound:(CGRect)toRect {
+    
+    CGFloat scale = toRect.size.width / fromRect.size.width;
+    
+    return CGRectMake(round(cropRect.origin.x * scale), round(cropRect.origin.y*scale), round(cropRect.size.width*scale), round(cropRect.size.height*scale));
+    
+}
+
+/* orientCropRect:inDimension: transposes the origin of the crop rectangle to match the orientation of the underlying CGImage. For some orientations, the height and width are swaped.
  */
--(CGRect)transposeCropRect:(CGRect)cropRect inBounds:(CGSize)boundSize {
+-(CGRect)transposeCropRect:(CGRect)cropRect inDimension:(CGSize)boundSize forOrientation:(UIImageOrientation)orientation{
     
     CGRect transposedRect = cropRect;
     
-    switch (self.imageOrientation) {
+    switch (orientation) {
         case UIImageOrientationLeft:
             transposedRect.origin.x = boundSize.height - (cropRect.size.height + cropRect.origin.y);
             transposedRect.origin.y = cropRect.origin.x;
@@ -179,7 +239,7 @@
     
     /* crop the resized image to the crop rectangel.
      */
-    CGImageRef cropRef = CGImageCreateWithImageInRect(img.CGImage, [self transposeCropRect:cropRect inBounds:frameSize]);
+    CGImageRef cropRef = CGImageCreateWithImageInRect(img.CGImage, [self transposeCropRect:cropRect inDimension:frameSize forOrientation:self.imageOrientation]);
     
     UIImage* croppedImg = [UIImage imageWithCGImage:cropRef scale:1.0 orientation:self.imageOrientation];
     
